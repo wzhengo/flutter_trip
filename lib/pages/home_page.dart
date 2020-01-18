@@ -5,6 +5,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_trip/dao/home_dao.dart';
 import 'package:flutter_trip/model/home_model.dart';
 import 'package:flutter_trip/widget/grid_nav.dart';
+import 'package:flutter_trip/widget/loading_container.dart';
 import 'package:flutter_trip/widget/local_nav.dart';
 import 'package:flutter_trip/widget/sales_box.dart';
 import 'package:flutter_trip/widget/sub_nav.dart';
@@ -30,6 +31,8 @@ class _HomePageState extends State<HomePage> {
   var subNavModel;
   var salesBoxModel;
 
+  var _loading = true;
+
   @override
   void initState() {
     super.initState();
@@ -40,80 +43,83 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfff2f2f2),
-      body: Stack(
-        children: <Widget>[
-          MediaQuery.removePadding(
-            removeTop: true,
-            context: context,
-            child: NotificationListener(
-              onNotification: (scroll) {
-                if (scroll is ScrollUpdateNotification && scroll.depth == 0) {
-                  _scroll(scroll.metrics.pixels);
-                }
-                return null;
-              },
-              child: ListView(
-                children: <Widget>[
-                  Container(
-                    height: 160,
-                    child: Swiper(
-                      itemCount: _imageUrls.length,
-                      autoplay: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Image.network(
-                          _imageUrls[index],
-                          fit: BoxFit.fill,
-                        );
-                      },
-                      pagination: SwiperPagination(),
+      body: LoadingContainer(
+        isLoading: _loading,
+        child: Stack(
+          children: <Widget>[
+            MediaQuery.removePadding(
+              removeTop: true,
+              context: context,
+              child: NotificationListener(
+                onNotification: (scroll) {
+                  if (scroll is ScrollUpdateNotification && scroll.depth == 0) {
+                    _scroll(scroll.metrics.pixels);
+                  }
+                  return null;
+                },
+                child: ListView(
+                  children: <Widget>[
+                    Container(
+                      height: 160,
+                      child: Swiper(
+                        itemCount: _imageUrls.length,
+                        autoplay: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Image.network(
+                            _imageUrls[index],
+                            fit: BoxFit.fill,
+                          );
+                        },
+                        pagination: SwiperPagination(),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
-                    child: LocalNav(localNavList: localNavList),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
-                    child: GridNav(
-                      gridNavModel: gridNavModel,
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                      child: LocalNav(localNavList: localNavList),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
-                    child: SubNav(
-                      subNavList: subNavModel,
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+                      child: GridNav(
+                        gridNavModel: gridNavModel,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
-                    child: SalesBox(
-                      salesBox: salesBoxModel,
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+                      child: SubNav(
+                        subNavList: subNavModel,
+                      ),
                     ),
-                  ),
-                  Container(
-                    height: 800,
-                    child: ListTile(
-                      title: Text(""),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+                      child: SalesBox(
+                        salesBox: salesBoxModel,
+                      ),
                     ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          Opacity(
-            opacity: appBarAlpha,
-            child: Container(
-              height: 80,
-              decoration: BoxDecoration(color: Colors.white),
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: Text('首页'),
+                    Container(
+                      height: 800,
+                      child: ListTile(
+                        title: Text(""),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
-          )
-        ],
+            Opacity(
+              opacity: appBarAlpha,
+              child: Container(
+                height: 80,
+                decoration: BoxDecoration(color: Colors.white),
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Text('首页'),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -141,9 +147,13 @@ class _HomePageState extends State<HomePage> {
         gridNavModel = model.gridNav;
         subNavModel = model.subNavList;
         salesBoxModel = model.salesBox;
+        _loading = false;
       });
     } catch (e) {
       print(e);
+      setState(() {
+        _loading = false;
+      });
     }
   }
 }
