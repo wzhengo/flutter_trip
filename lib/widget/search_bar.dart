@@ -158,6 +158,7 @@ class _SearchBarState extends State<SearchBar> {
               flex: 1,
               child: _isNormalType()
                   ? TextField(
+                      controller: _controller,
                       onChanged: _onChanged,
                       autofocus: true,
                       style: TextStyle(
