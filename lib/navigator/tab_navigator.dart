@@ -24,7 +24,9 @@ class _TabNavigatorState extends State<TabNavigator> {
         controller: _controller,
         children: <Widget>[
           HomePage(),
-          SearchPage(),
+          SearchPage(
+            hideLeft: true,
+          ),
           TravelPage(),
           MyPage(),
         ],
@@ -51,16 +53,17 @@ class _TabNavigatorState extends State<TabNavigator> {
   _bottomItem(String title, IconData icon, int index) {
     return BottomNavigationBarItem(
         icon: Icon(
-          icon, color: _defaultColor,
+          icon,
+          color: _defaultColor,
         ),
         activeIcon: Icon(
-          icon, color: _activeColor,
+          icon,
+          color: _activeColor,
         ),
         title: Text(
           title,
           style: TextStyle(
               color: _currentIndex != index ? _defaultColor : _activeColor),
-        )
-    );
+        ));
   }
 }

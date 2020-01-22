@@ -7,6 +7,7 @@ import 'package:flutter_trip/model/common_model.dart';
 import 'package:flutter_trip/model/grid_nav_model.dart';
 import 'package:flutter_trip/model/home_model.dart';
 import 'package:flutter_trip/model/sales_box_model.dart';
+import 'package:flutter_trip/pages/search_page.dart';
 import 'package:flutter_trip/widget/grid_nav.dart';
 import 'package:flutter_trip/widget/loading_container.dart';
 import 'package:flutter_trip/widget/local_nav.dart';
@@ -77,13 +78,12 @@ class _HomePageState extends State<HomePage> {
       children: <Widget>[
         Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              //AppBar渐变遮罩背景
+              gradient: LinearGradient(
+            //AppBar渐变遮罩背景
             colors: [Color(0x66000000), Colors.transparent],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            )
-          ),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          )),
           child: Container(
             padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
             height: 80.0,
@@ -203,7 +203,14 @@ class _HomePageState extends State<HomePage> {
     return null;
   }
 
-  void _jumpToSearch() {}
+  void _jumpToSearch() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SearchPage(
+                  hint: SEARCH_BAR_DEFAULT_TEXT,
+                )));
+  }
 
   void _jumpToSpeak() {}
 }
