@@ -87,6 +87,7 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
+				D71C278123D99F93000D9976 /* plugin */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				97C146EF1CF9000F007C117D /* Products */,
@@ -134,6 +135,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D71C278123D99F93000D9976 /* plugin */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = plugin;
+			sourceTree = "<group>";
+		};
 		E02957FBC47BD7ACBB2470F1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,7 +149,6 @@
 				BAC0CBEF62E122FF8FBC0848 /* Pods-Runner.release.xcconfig */,
 				3FB7AD0E301C96081C6B69B5 /* Pods-Runner.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
