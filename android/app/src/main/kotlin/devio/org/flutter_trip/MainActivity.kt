@@ -11,6 +11,6 @@ class MainActivity : FlutterActivity() {
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         GeneratedPluginRegistrant.registerWith(flutterEngine);
         val shimPluginRegistry = ShimPluginRegistry(flutterEngine)
-        AsrPlugin.registerWith(shimPluginRegistry.registrarFor("org.devio.flutter.plugin.asr.AsrPlugin"))
+        AsrPlugin.registerWith(shimPluginRegistry.registrarFor("com.wz.plugin.asr.AsrPlugin"))
     }
 }
