@@ -55,6 +55,11 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+            minifyEnabled true //是否启用代码压缩 需要将targetSdkVersion 和 compileSdkVersion 升级到 28 @https://github.com/flutter/flutter/issues/26860#issuecomment-469751224
+            useProguard true
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
     }
 
